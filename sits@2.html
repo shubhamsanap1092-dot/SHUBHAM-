@@ -3005,9 +3005,8 @@ class="modal">
         { n: "SHINDE ARYAN ANIL", p: "8625903817", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "51" },
         { n: "MORE ROHIT DINESH", p: "9561228499", y: "1ST YEAR", b: "COMBINE", d: "Div-8", r: "52" }
          ];
-   const localStudents = JSON.parse(localStorage.getItem('sits_pro_std_v2'));
-   const validStudents = (localStudents && localStudents.length > 0) ? localStudents : INITIAL_STUDENTS;
-
+   const savedStudents = JSON.parse(localStorage.getItem('sits_pro_std_v2'));
+   const validStudentsList = (savedStudents && savedStudents.length > 0) ? savedStudents : INITIAL_STUDENTS;
    const DB = {
         students: validStudents,
         records: JSON.parse(localStorage.getItem('sits_pro_rec_v2')) || [],
@@ -3073,25 +3072,40 @@ class="modal">
         const id = document.getElementById('loginID').value.trim();
         const pass = document.getElementById('loginPass').value.trim();
         
+        // 1. Admin Login
         if(id === "admin@sits.com" && pass === "admin") {
             activeUser = {role:"ADMIN", n:"Admin"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
-        } else if(id === "teacher@sits.com" && pass === "1234") {
+        } 
+        // 2. Faculty Login
+        else if(id === "teacher@sits.com" && pass === "1234") {
             activeUser = {role:"TEACHER", n:"Faculty Member"};
             playWelcomeAudio(activeUser); 
             loadDashboard();
-        } else {
-            const st = DB.students.find(s => String(s.p).trim() === String(id) || `P-${s.p}` === id);
+        } 
+        // 3. Student/Parent Login
+        else {
+            // Find student by converting both to String for a clean match
+            const st = DB.students.find(s => 
+                String(s.p).trim() === String(id) || 
+                `P-${s.p}` === id
+            );
             
-            if(st && (pass === "1234" || pass === "parent")) { 
-                activeUser = {...st, role: pass === "parent" ? "PARENT" : "STUDENT"}; 
-                playWelcomeAudio(activeUser); 
-                loadDashboard(); 
+            if(st) {
+                if (pass === "1234") {
+                    activeUser = {...st, role: "STUDENT"};
+                    playWelcomeAudio(activeUser); 
+                    loadDashboard();
+                } else if (pass === "parent") {
+                    activeUser = {...st, role: "PARENT"};
+                    playWelcomeAudio(activeUser); 
+                    loadDashboard();
+                } else {
+                    alert("Incorrect Password. (Default: 1234)");
+                }
             } else {
-                console.log("Login Failed. Input ID:", id);
-                console.log("Total Students in DB:", DB.students.length);
-                alert("Invalid Credentials. Students: Use Phone Number as ID (Default Pass: 1234).");
+                alert("User ID not found. Use your registered mobile number.");
             }
         }
     }
