@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Anjana — A Story Worth Celebrating</title>
+<style>
+  :root{
+    --ink:        #17151f;
+    --ink-soft:   #2a2536;
+    --parchment:  #f4ecd8;
+    --parchment2: #e9ddbe;
+    --gold:       #c69a3f;
+    --rose:       #a24a52;
+    --rose-soft:  #c97b82;
+    --line:       rgba(23,21,31,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 600px at 15% -5%, rgba(198,154,63,0.16), transparent 60%),
+      radial-gradient(ellipse 900px 700px at 100% 15%, rgba(162,74,82,0.10), transparent 55%),
+      radial-gradient(ellipse 1000px 800px at 50% 100%, rgba(198,154,63,0.08), transparent 60%),
+      linear-gradient(180deg, #f6efdd 0%, var(--parchment) 40%, var(--parchment2) 100%);
+    color:var(--ink);
+    font-family:'Lora', Georgia, serif;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--gold); color:var(--ink); }
+
+  h1,h2,h3,.display{
+    font-family:'Playfair Display', 'Cormorant Garamond', serif;
+    margin:0;
+  }
+
+  .type{
+    font-family:'Special Elite', 'Courier New', monospace;
+    letter-spacing:0.08em;
+  }
+
+  a{ color:inherit; }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:1000;
+    opacity:0.05;
+    background-image:
+      radial-gradient(circle at 20% 30%, #000 0.5px, transparent 0.5px),
+      radial-gradient(circle at 70% 65%, #000 0.5px, transparent 0.5px);
+    background-size: 3px 3px, 4px 4px;
+  }
+
+  #music-btn{
+    position:fixed;
+    bottom:24px; right:24px;
+    z-index:900;
+    width:58px; height:58px;
+    border-radius:50%;
+    border:1.5px solid var(--gold);
+    background:var(--ink);
+    color:var(--parchment);
+    display:flex; 
+    align-items:center; 
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  #music-btn:hover{ 
+    transform:scale(1.08); 
+    box-shadow:0 8px 26px rgba(0,0,0,0.32); 
+}
+  #music-btn svg{ 
+    width:24px; 
+    height:24px; 
+}
+  #music-btn.playing svg#nib{ 
+    animation: nib-write 1.6s ease-in-out infinite; 
+}
+  @keyframes nib-write{
+    0%,100%{ transform: translate(0,0) rotate(0deg); }
+    50%{ transform: translate(1.5px,-1.5px) rotate(-6deg); }
+  }
+  #music-label{
+    position:fixed;
+    bottom:34px; right:90px;
+    z-index:900;
+    font-size:0.7rem;
+    color:var(--ink-soft);
+    background:var(--parchment2);
+    border:1px solid var(--line);
+    padding:5px 10px;
+    border-radius:20px;
+    opacity:0;
+    transform:translateX(6px);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  #music-btn:hover + #music-label{ opacity:1; transform:translateX(0); }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:6vh 6vw;
+    background:
+      radial-gradient(ellipse 700px 500px at 50% -8%, rgba(198,154,63,0.28), transparent 62%),
+      radial-gradient(ellipse 600px 500px at 8% 100%, rgba(162,74,82,0.14), transparent 60%),
+      radial-gradient(ellipse 600px 500px at 96% 92%, rgba(198,154,63,0.14), transparent 60%),
+      var(--parchment);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    box-shadow: inset 0 0 160px rgba(23,21,31,0.10);
+  }
+
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle, rgba(198,154,63,0.55) 1px, transparent 1.4px);
+    background-size: 90px 90px;
+    background-position: 0 0;
+    opacity:0.35;
+    pointer-events:none;
+  }
+
+  .hero .eyebrow{
+    font-size:0.72rem;
+    color:var(--rose);
+    margin-bottom:22px;
+    min-height:1.2em;
+  }
+  .hero .eyebrow .cursor{
+    display:inline-block;
+    width:1px; height:0.9em;
+    background:var(--rose);
+    margin-left:2px;
+    vertical-align:-0.1em;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero h1{
+    font-size:clamp(3.2rem, 11vw, 8rem);
+    font-style:italic;
+    font-weight:600;
+    line-height:0.95;
+    background:linear-gradient(100deg, var(--rose) 0%, var(--gold) 45%, var(--rose-soft) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    letter-spacing:0.01em;
+  }
+
+  .hero .underline{
+    width:min(320px, 60vw);
+    height:14px;
+    margin:6px auto 26px;
+  }
+  .hero .underline path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+    animation:draw 1.4s 0.6s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .hero p.sub{
+    max-width:44ch;
+    font-size:1.05rem;
+    color:var(--ink-soft);
+    font-style:italic;
+    opacity:0;
+    animation:fadeUp .9s 1.4s ease forwards;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:34px; left:50%;
+    transform:translateX(-50%);
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    opacity:0.6;
+    display:flex; 
+    flex-direction:column; 
+    align-items:center;
+    gap:8px;
+  }
+  .scroll-cue .dash{
+    width:1px; 
+    height:30px;
+    background:var(--ink-soft);
+    animation:cue 1.8s ease-in-out infinite;
+  }
+  @keyframes cue{
+    0%,100%{ transform:scaleY(1); opacity:0.4; }
+    50%{ transform:scaleY(0.5); opacity:0.9; }
+  }
+
+  .leaf{
+    position:fixed;
+    top:-5vh;
+    z-index:2;
+    pointer-events:none;
+    color:var(--gold);
+    opacity:0.35;
+    font-size:14px;
+    animation-name:fall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+  }
+  @keyframes fall{
+    0%{ transform:translateY(0) rotate(0deg); }
+    100%{ transform:translateY(110vh) rotate(360deg); }
+  }
+
+  .chapter{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+    padding:14vh 7vw;
+    border-bottom:1px solid var(--line);
+  }
+  .chapter.ink{
+    max-width:100%;
+    position:relative;
+    background:
+      radial-gradient(ellipse 700px 500px at 15% 0%, rgba(198,154,63,0.14), transparent 55%),
+      radial-gradient(ellipse 800px 600px at 100% 100%, rgba(162,74,82,0.16), transparent 55%),
+      linear-gradient(160deg, #1c1828 0%, #14111c 45%, #1f1830 100%);
+    color:var(--parchment);
+    overflow:hidden;
+  }
+  .chapter.ink::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle, rgba(244,236,216,0.5) 1px, transparent 1.4px);
+    background-size: 70px 70px, 110px 110px;
+    background-position: 0 0, 35px 55px;
+    opacity:0.18;
+    pointer-events:none;
+  }
+  .chapter.ink .chapter-inner{
+    position:relative;
+    z-index:1;
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  .chapter-num{
+    display:block;
+    font-size:0.72rem;
+    color:var(--rose);
+    margin-bottom:18px;
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .chapter.ink .chapter-num{ color:var(--gold); }
+
+  .chapter h2{
+    font-size:clamp(1.8rem, 4.4vw, 2.9rem);
+    font-style:italic;
+    font-weight:600;
+    margin-bottom:28px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .8s ease .08s, transform .8s ease .08s;
+  }
+
+  .chapter p{
+    font-size:1.12rem;
+    line-height:1.85;
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .8s ease .16s, transform .8s ease .16s;
+  }
+  .chapter.ink p{ color:#d9d2e0; }
+
+  .chapter.in-view .chapter-num,
+  .chapter.in-view h2,
+  .chapter.in-view p{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .dropcap::first-letter{
+    font-family:'Playfair Display', serif;
+    font-size:3.4em;
+    font-style:italic;
+    color:var(--gold);
+    float:left;
+    line-height:0.8;
+    margin:0.05em 0.08em 0 0;
+  }
+
+  .photo-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+    gap:28px;
+    margin:10px 0 30px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .9s ease .2s, transform .9s ease .2s;
+  }
+  .chapter.in-view .photo-wrap{ 
+    opacity:1; 
+    transform:translateY(0); 
+}
+
+  .polaroid{
+    background:var(--parchment);
+    padding:16px 16px 52px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.35);
+    max-width:280px;
+    width:70vw;
+  }
+  .polaroid.rot-left{ 
+    transform:rotate(-4deg); 
+}
+  .polaroid.rot-right{ 
+    transform:rotate(3deg); 
+    margin-top:22px; 
+}
+  .polaroid:hover{ 
+    transform:rotate(0deg) scale(1.03); 
+    transition:transform .35s ease; 
+}
+
+  .polaroid img{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    filter:sepia(0.12) contrast(1.02);
+  }
+  .polaroid figcaption{
+    font-family:'Special Elite', monospace;
+    font-size:0.75rem;
+    text-align:center;
+    color:var(--ink-soft);
+    margin-top:14px;
+  }
+
+  .wishes{
+    list-style:none;
+    margin:10px 0 0;
+    padding:0;
+  }
+  .wishes li{
+    position:relative;
+    padding:14px 0 14px 34px;
+    border-bottom:1px dashed var(--line);
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    opacity:0;
+    transform:translateY(10px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .chapter.in-view .wishes li{ opacity:1; transform:translateY(0); }
+  .chapter.in-view .wishes li:nth-child(1){ transition-delay:.15s; }
+  .chapter.in-view .wishes li:nth-child(2){ transition-delay:.28s; }
+  .chapter.in-view .wishes li:nth-child(3){ transition-delay:.41s; }
+  .chapter.in-view .wishes li:nth-child(4){ transition-delay:.54s; }
+  .wishes li::before{
+    content:"✒";
+    position:absolute;
+    left:0; top:12px;
+    color:var(--gold);
+    font-size:1.1rem;
+  }
+
+  .candle-section{
+    background:
+      radial-gradient(ellipse 500px 400px at 50% 65%, rgba(198,154,63,0.22), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 10%, rgba(162,74,82,0.14), transparent 55%),
+      radial-gradient(ellipse 700px 500px at 95% 15%, rgba(198,154,63,0.10), transparent 55%),
+      linear-gradient(160deg, #1c1828 0%, #14111c 45%, #1f1830 100%);
+    color:var(--parchment);
+    text-align:center;
+    padding:16vh 6vw 18vh;
+    position:relative;
+    overflow:hidden;
+  }
+  .candle-section::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle, rgba(244,236,216,0.5) 1px, transparent 1.4px);
+    background-size: 80px 80px;
+    opacity:0.16;
+    pointer-events:none;
+  }
+  .candle-section > *{ position:relative; z-index:1; }
+  .candle-section .chapter-num{ color:var(--gold); }
+  .candle-section h2{
+    font-size:clamp(1.9rem, 4.6vw, 3rem);
+    font-style:italic;
+    margin-bottom:10px;
+  }
+  .candle-section .hint{
+    font-family:'Special Elite', monospace;
+    font-size:0.78rem;
+    color:#b9afc7;
+    margin-bottom:50px;
+  }
+
+  .cake{
+    display:inline-block;
+    cursor:pointer;
+    user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .candle{
+    position:relative;
+    width:10px; height:56px;
+    background:linear-gradient(180deg, var(--rose-soft), var(--rose));
+    margin:0 auto;
+    border-radius:2px;
+  }
+  .flame{
+    position:absolute;
+    top:-26px; left:50%;
+    transform:translateX(-50%);
+    width:16px; height:26px;
+    background:radial-gradient(circle at 50% 70%, #fff2b8 0%, var(--gold) 45%, var(--rose) 100%);
+    border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation:flicker 1.4s ease-in-out infinite;
+    transform-origin:center bottom;
+    box-shadow: 0 0 22px 10px rgba(198,154,63,0.35), 0 0 60px 24px rgba(198,154,63,0.12);
+  }
+  @keyframes flicker{
+    0%,100%{ transform:translateX(-50%) scale(1) rotate(-2deg); }
+    50%{ transform:translateX(-50%) scale(1.08,0.95) rotate(2deg); }
+  }
+  .flame.out{ 
+    animation:none; 
+    opacity:0; 
+    transition:opacity .4s ease; 
+}
+
+  .plate{
+    width:150px; height:34px;
+    margin:0 auto;
+    margin-top:-4px;
+    background:linear-gradient(180deg, #3a3348, #241f30);
+    border-radius:50%;
+    box-shadow:0 10px 24px rgba(0,0,0,0.5);
+  }
+
+  .made-wish{
+    margin-top:34px;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1.3rem;
+    color:var(--gold);
+    opacity:0;
+    transform:translateY(8px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .made-wish.show{ opacity:1; transform:translateY(0); }
+
+  .smoke{
+    position:absolute;
+    width:6px; height:6px;
+    background:rgba(230,225,235,0.5);
+    border-radius:50%;
+    filter:blur(2px);
+    opacity:0;
+    pointer-events:none;
+  }
+
+  .signoff{
+    text-align:center;
+    padding:16vh 6vw 12vh;
+    background:
+      radial-gradient(ellipse 700px 500px at 50% 0%, rgba(198,154,63,0.16), transparent 60%),
+      linear-gradient(180deg, var(--parchment2) 0%, var(--parchment) 100%);
+  }
+  .signoff p.line{
+    font-size:1.1rem;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-bottom:8px;
+  }
+  .signoff .sig{
+    margin-top:26px;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:2rem;
+    color:var(--rose);
+  }
+  .signoff .fineprint{
+    margin-top:60px;
+    font-family:'Special Elite', monospace;
+    font-size:0.66rem;
+    color:#9a917f;
+    letter-spacing:0.05em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  button:focus-visible, .cake:focus-visible{
+    outline:2px solid var(--rose);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop preload="none">
+  <source src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/the_mountain-happy-birthday-508020.mp3" type="audio/mpeg">
+</audio>
+<button id="music-btn" aria-label="Play background music">
+  <svg id="nib" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+    <path d="M2 2l7.586 7.586"></path>
+    <circle cx="11" cy="11" r="2"></circle>
+  </svg>
+</button>
+<span id="music-label" class="type">a little music?</span>
+
+<section class="hero">
+  <span class="eyebrow type" id="typewriter-line">A NEW CHAPTER BEGINS<span class="cursor"></span></span>
+  <h1>ANJU..</h1>
+  <svg class="underline" viewBox="0 0 320 14" preserveAspectRatio="none">
+    <path d="M4 9 C 70 2, 140 13, 200 6 S 300 3, 316 8"/>
+  </svg>
+  <p class="sub">Happy birthday to the woman who turns ordinary days into sentences worth re-reading.</p>
+  <div class="scroll-cue"><span class="dash"></span><span>scroll</span></div>
+</section>
+
+<section class="chapter" id="ch1">
+  <span class="chapter-num type">CHAPTER ONE — THE STORYTELLER</span>
+  <h2>Some people collect years.<br>You collect stories.</h2>
+  <p class="dropcap">Every year you find new words for feelings the rest of us can't quite name. 
+    You notice the light before anyone else does, the pause before someone speaks, the sentence 
+    hiding inside an ordinary Tuesday. That's not a small gift — it's the reason the people 
+    around you feel a little more seen.</p>
+  <p>Today isn't about another candle. It's about the whole library you've written since the 
+    last one — every page, every draft, every quiet 2 a.m. idea you were brave enough to keep.</p>
+</section>
+
+<section class="chapter" id="ch2">
+  <span class="chapter-num type">CHAPTER TWO — A FAVOURITE PAGE</span>
+  <h2>One from the archives.</h2>
+  <figure class="photo-wrap two">
+    <div class="polaroid rot-left">
+      <img data-replace="photo" src="https://github.com/shubhamsanap1092-dot/SHUBHAM-/blob/main/WhatsApp%20Image%202026-08-14%20at%203.11.13%20PM.jpeg?raw=true" alt="A favourite photo of Anjana">
+      <figcaption>— a moment worth the caption —</figcaption>
+    </div>
+    <div class="polaroid rot-right">
+      <img data-replace="photo" src="https://github.com/shubhamsanap1092-dot/SHUBHAM-/blob/main/WhatsApp%20Image%202026-08-14%20at%203.11.34%20PM.jpeg?raw=true" alt="Another favourite photo of Anjana">
+      <figcaption>— and another worth keeping —</figcaption>
+    </div>
+  </figure>
+  <p>Some memories don't need paragraphs. These are two of them.</p>
+</section>
+
+<section class="chapter ink" id="ch3">
+  <div class="chapter-inner">
+    <span class="chapter-num type">CHAPTER THREE — WHAT I WISH FOR YOU</span>
+    <h2>Not resolutions. Just wishes.</h2>
+    <ul class="wishes">
+      <li>A blank page that never feels intimidating — only full of possibility.</li>
+      <li>Readers, real and imagined, who understand exactly what you meant.</li>
+      <li>Days generous enough to give you both the words and the rest.</li>
+      <li>A year written entirely in your own voice, no edits needed.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="candle-section">
+  <span class="chapter-num type">FINAL CHAPTER — MAKE A WISH</span>
+  <h2>Blow out the candle.</h2>
+  <p class="hint type">(go on, tap the flame)</p>
+  <div class="cake" id="cake" role="button" tabindex="0" aria-label="Blow out the candle">
+    <div class="candle"><div class="flame" id="flame"></div></div>
+    <div class="plate"></div>
+  </div>
+  <p class="made-wish" id="madeWish">Whatever you wished for — I hope the next chapter writes it true.</p>
+</section>
+
+<section class="signoff">
+  <p class="line">Happy birthday, Anjana.</p>
+  <p class="line">Keep writing like the world is taking notes —</p>
+  <p class="line">because some of us really are.</p>
+  <div class="sig">— SHUBHAM SANAP</div>
+  <div class="fineprint">TYPED WITH CARE, ONE KEY AT A TIME</div>
+</section>
+
+<script>
+  const twEl = document.getElementById('typewriter-line');
+  const fullText = "A NEW CHAPTER BEGINS";
+  twEl.innerHTML = '<span class="cursor"></span>';
+  let i = 0;
+  function typeChar(){
+    if(i <= fullText.length){
+      twEl.innerHTML = fullText.slice(0,i) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(typeChar, 55);
+    }
+  }
+  typeChar();
+
+  const chapters = document.querySelectorAll('.chapter');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    });
+  }, { threshold:0.25 });
+  chapters.forEach(c=>io.observe(c));
+
+  const leafGlyphs = ['❧','✒','❦'];
+  for(let n=0;n<10;n++){
+    const el = document.createElement('span');
+    el.className = 'leaf';
+    el.textContent = leafGlyphs[n % leafGlyphs.length];
+    el.style.left = Math.random()*100 + 'vw';
+    el.style.animationDuration = (14 + Math.random()*10) + 's';
+    el.style.animationDelay = (Math.random()*14) + 's';
+    el.style.fontSize = (10 + Math.random()*10) + 'px';
+    document.body.appendChild(el);
+  }
+
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('music-btn');
+  let playing = false;
+  musicBtn.addEventListener('click', ()=>{
+    if(!playing){
+      bgm.play().catch(()=>{});
+      musicBtn.classList.add('playing');
+      musicBtn.setAttribute('aria-label','Pause background music');
+    } else {
+      bgm.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.setAttribute('aria-label','Play background music');
+    }
+    playing = !playing;
+  });
+
+  const cake = document.getElementById('cake');
+  const flame = document.getElementById('flame');
+  const madeWish = document.getElementById('madeWish');
+  let blown = false;
+  function blowOut(){
+    if(blown) return;
+    blown = true;
+    flame.classList.add('out');
+    madeWish.classList.add('show');
+    for(let s=0;s<5;s++){
+      const puff = document.createElement('div');
+      puff.className = 'smoke';
+      const rect = flame.getBoundingClientRect();
+      puff.style.left = (rect.left + rect.width/2 + window.scrollX) + 'px';
+      puff.style.top = (rect.top + window.scrollY) + 'px';
+      document.body.appendChild(puff);
+      const dx = (Math.random()-0.5)*40;
+      puff.animate([
+        { transform:'translate(0,0)', opacity:0.6 },
+        { transform:`translate(${dx}px,-60px)`, opacity:0 }
+      ], { duration: 1400 + Math.random()*600, easing:'ease-out' });
+      setTimeout(()=>puff.remove(), 2100);
+    }
+  }
+  cake.addEventListener('click', blowOut);
+  cake.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') blowOut(); });
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,600;1,700&family=Cormorant+Garamond:ital@0;1&family=Lora:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+
+</body>
+</html>
