@@ -530,9 +530,192 @@
     outline:2px solid var(--rose);
     outline-offset:3px;
   }
+
+  /* ---------- reading-progress ribbon ---------- */
+  #progress-ribbon{
+    position:fixed;
+    top:0; left:0;
+    height:4px;
+    width:0%;
+    background:linear-gradient(90deg, var(--rose), var(--gold));
+    z-index:950;
+    transition:width .08s linear;
+  }
+
+  /* ---------- side chapter navigation ---------- */
+  #chapter-nav{
+    position:fixed;
+    right:22px; top:50%;
+    transform:translateY(-50%);
+    z-index:900;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  #chapter-nav a{
+    display:block;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:transparent;
+    border:1.5px solid var(--rose);
+    opacity:0.55;
+    transition:opacity .3s ease, transform .3s ease, background .3s ease;
+    position:relative;
+  }
+  #chapter-nav a:hover{ transform:scale(1.3); opacity:1; }
+  #chapter-nav a.active{ background:var(--gold); border-color:var(--gold); opacity:1; transform:scale(1.25); }
+  #chapter-nav a .nav-label{
+    position:absolute;
+    right:20px; top:50%;
+    transform:translateY(-50%);
+    white-space:nowrap;
+    font-family:'Special Elite', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.06em;
+    background:var(--ink);
+    color:var(--parchment);
+    padding:4px 9px;
+    border-radius:3px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  #chapter-nav a:hover .nav-label{ opacity:1; }
+  @media (max-width:680px){ #chapter-nav{ display:none; } }
+
+  /* ---------- confetti ---------- */
+  .confetti-piece{
+    position:fixed;
+    top:-4vh;
+    z-index:901;
+    pointer-events:none;
+    border-radius:1px;
+  }
+
+  /* ---------- guestbook ---------- */
+  .guestbook{
+    text-align:left;
+    padding:16vh 6vw 14vh;
+    background:
+      radial-gradient(ellipse 700px 500px at 85% 0%, rgba(198,154,63,0.12), transparent 55%),
+      var(--parchment2);
+    border-bottom:1px solid var(--line);
+  }
+  .guestbook-inner{ max-width:640px; margin:0 auto; }
+  .guestbook h2{
+    font-size:clamp(1.7rem, 4vw, 2.4rem);
+    font-style:italic;
+    margin-bottom:10px;
+    text-align:center;
+  }
+  .guestbook .hint{
+    font-family:'Special Elite', monospace;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    text-align:center;
+    display:block;
+    margin-bottom:34px;
+    opacity:0.75;
+  }
+  .guestbook form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    background:var(--parchment);
+    padding:22px;
+    box-shadow:0 10px 26px rgba(0,0,0,0.12);
+  }
+  .guestbook input, .guestbook textarea{
+    font-family:'Lora', Georgia, serif;
+    font-size:0.98rem;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    background:#fffdf7;
+    color:var(--ink);
+    resize:vertical;
+  }
+  .guestbook textarea{ min-height:80px; }
+  .guestbook input:focus, .guestbook textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+  }
+  .guestbook button{
+    align-self:flex-start;
+    font-family:'Special Elite', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    background:var(--ink);
+    color:var(--parchment);
+    border:none;
+    padding:12px 22px;
+    cursor:pointer;
+    transition:background .25s ease, transform .2s ease;
+  }
+  .guestbook button:hover{ background:var(--rose); transform:translateY(-1px); }
+  #guest-entries{
+    margin-top:34px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .guest-note{
+    background:var(--parchment);
+    border-left:3px solid var(--gold);
+    padding:14px 18px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.08);
+  }
+  .guest-note .who{
+    font-family:'Special Elite', monospace;
+    font-size:0.68rem;
+    color:var(--rose);
+    margin-bottom:6px;
+    display:block;
+  }
+  .guest-note .msg{
+    font-size:0.98rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  #guest-empty{
+    font-family:'Special Elite', monospace;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    opacity:0.6;
+    text-align:center;
+    padding:10px 0;
+  }
+
+  /* ---------- share button ---------- */
+  .share-btn{
+    margin-top:30px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Special Elite', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.05em;
+    background:transparent;
+    color:var(--rose);
+    border:1px solid var(--rose);
+    padding:10px 18px;
+    cursor:pointer;
+    transition:background .25s ease, color .25s ease;
+  }
+  .share-btn:hover{ background:var(--rose); color:var(--parchment); }
+  .share-btn.copied{ background:var(--gold); border-color:var(--gold); color:var(--ink); }
 </style>
 </head>
 <body>
+
+<div id="progress-ribbon"></div>
+<nav id="chapter-nav" aria-label="Jump to chapter">
+  <a href="#top" class="active" data-label="Cover"><span class="nav-label">Cover</span></a>
+  <a href="#ch1" data-label="Ch. 1"><span class="nav-label">Ch. 1 — The Storyteller</span></a>
+  <a href="#ch2" data-label="Ch. 2"><span class="nav-label">Ch. 2 — A Favourite Page</span></a>
+  <a href="#ch3" data-label="Ch. 3"><span class="nav-label">Ch. 3 — What I Wish For You</span></a>
+  <a href="#wish" data-label="Wish"><span class="nav-label">Make a Wish</span></a>
+  <a href="#guestbook" data-label="Guestbook"><span class="nav-label">Guestbook</span></a>
+</nav>
 
 <audio id="bgm" loop preload="none">
   <source src="https://raw.githubusercontent.com/shubhamsanap1092-dot/SHUBHAM-/main/the_mountain-happy-birthday-508020.mp3" type="audio/mpeg">
@@ -547,13 +730,13 @@
 </button>
 <span id="music-label" class="type">a little music?</span>
 
-<section class="hero">
+<section class="hero" id="top">
   <span class="eyebrow type" id="typewriter-line">A NEW CHAPTER BEGINS<span class="cursor"></span></span>
-  <h1>ANJU..</h1>
+  <h1>ANJANA/WRITTER..</h1>
   <svg class="underline" viewBox="0 0 320 14" preserveAspectRatio="none">
     <path d="M4 9 C 70 2, 140 13, 200 6 S 300 3, 316 8"/>
   </svg>
-  <p class="sub">Happy birthday to the woman who turns ordinary days into sentences worth re-reading.</p>
+  <p class="sub">Happy birthday to the girl who turns ordinary days into sentences worth re-reading.</p>
   <div class="scroll-cue"><span class="dash"></span><span>scroll</span></div>
 </section>
 
@@ -597,7 +780,7 @@
   </div>
 </section>
 
-<section class="candle-section">
+<section class="candle-section" id="wish">
   <span class="chapter-num type">FINAL CHAPTER — MAKE A WISH</span>
   <h2>Blow out the candle.</h2>
   <p class="hint type">(go on, tap the flame)</p>
@@ -608,12 +791,28 @@
   <p class="made-wish" id="madeWish">Whatever you wished for — I hope the next chapter writes it true.</p>
 </section>
 
+<section class="guestbook" id="guestbook">
+  <div class="guestbook-inner">
+    <h2>The guestbook</h2>
+    <span class="hint type">leave a line for anju — future readers welcome</span>
+    <form id="guestForm">
+      <input type="text" id="guestName" placeholder="Your name" maxlength="40" required>
+      <textarea id="guestMsg" placeholder="Write your birthday note here…" maxlength="280" required></textarea>
+      <button type="submit">Add to the book</button>
+    </form>
+    <div id="guest-entries"></div>
+    <p id="guest-empty">No notes yet — be the first to sign the book.</p>
+  </div>
+</section>
+
 <section class="signoff">
   <p class="line">Happy birthday, Anjana.</p>
   <p class="line">Keep writing like the world is taking notes —</p>
   <p class="line">because some of us really are.</p>
   <div class="sig">— SHUBHAM SANAP</div>
   <div class="fineprint">TYPED WITH CARE, ONE KEY AT A TIME</div>
+  <br>
+  <button class="share-btn" id="shareBtn" type="button">✎ Copy this page's link</button>
 </section>
 
 <script>
@@ -692,6 +891,135 @@
   }
   cake.addEventListener('click', blowOut);
   cake.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') blowOut(); });
+
+  // ---------- confetti burst on blow-out ----------
+  function burstConfetti(){
+    const colors = ['#c69a3f','#a24a52','#c97b82','#f4ecd8'];
+    const originY = flame.getBoundingClientRect().top + window.scrollY;
+    for(let i=0;i<46;i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      const size = 5 + Math.random()*6;
+      p.style.width = size + 'px';
+      p.style.height = (size*0.4) + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.left = (window.innerWidth/2 + (Math.random()-0.5)*260) + 'px';
+      p.style.top = (originY - 40) + 'px';
+      document.body.appendChild(p);
+      const dx = (Math.random()-0.5)*320;
+      const dy = 320 + Math.random()*260;
+      const rot = (Math.random()*720)-360;
+      p.animate([
+        { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
+        { transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity:0 }
+      ], { duration: 1800 + Math.random()*900, easing:'cubic-bezier(.2,.6,.3,1)' });
+      setTimeout(()=>p.remove(), 2800);
+    }
+  }
+  cake.addEventListener('click', burstConfetti);
+  cake.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' ') burstConfetti(); });
+
+  // ---------- reading progress ribbon ----------
+  const ribbon = document.getElementById('progress-ribbon');
+  function updateProgress(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    ribbon.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive:true });
+  updateProgress();
+
+  // ---------- chapter nav active state ----------
+  const navLinks = document.querySelectorAll('#chapter-nav a');
+  const navTargets = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+  function updateNav(){
+    let currentIndex = 0;
+    navTargets.forEach((t, idx) => {
+      if(t && t.getBoundingClientRect().top - window.innerHeight/2 < 0) currentIndex = idx;
+    });
+    navLinks.forEach((a, idx) => a.classList.toggle('active', idx === currentIndex));
+  }
+  window.addEventListener('scroll', updateNav, { passive:true });
+  updateNav();
+
+  // ---------- guestbook (saved locally in this browser) ----------
+  const GB_KEY = 'anjana_guestbook_entries';
+  const guestForm = document.getElementById('guestForm');
+  const guestEntries = document.getElementById('guest-entries');
+  const guestEmpty = document.getElementById('guest-empty');
+
+  function loadEntries(){
+    try{
+      return JSON.parse(localStorage.getItem(GB_KEY) || '[]');
+    }catch(e){ return []; }
+  }
+  function saveEntries(list){
+    try{ localStorage.setItem(GB_KEY, JSON.stringify(list)); }catch(e){}
+  }
+  function renderEntries(){
+    const list = loadEntries();
+    guestEntries.innerHTML = '';
+    guestEmpty.style.display = list.length ? 'none' : 'block';
+    list.slice().reverse().forEach(entry => {
+      const div = document.createElement('div');
+      div.className = 'guest-note';
+      const who = document.createElement('span');
+      who.className = 'who';
+      who.textContent = entry.name + ' · ' + entry.date;
+      const msg = document.createElement('div');
+      msg.className = 'msg';
+      msg.textContent = entry.message;
+      div.appendChild(who);
+      div.appendChild(msg);
+      guestEntries.appendChild(div);
+    });
+  }
+  if(guestForm){
+    guestForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const nameEl = document.getElementById('guestName');
+      const msgEl = document.getElementById('guestMsg');
+      const name = nameEl.value.trim();
+      const message = msgEl.value.trim();
+      if(!name || !message) return;
+      const list = loadEntries();
+      list.push({
+        name,
+        message,
+        date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+      });
+      saveEntries(list);
+      nameEl.value = '';
+      msgEl.value = '';
+      renderEntries();
+    });
+    renderEntries();
+  }
+
+  // ---------- share button ----------
+  const shareBtn = document.getElementById('shareBtn');
+  if(shareBtn){
+    shareBtn.addEventListener('click', async ()=>{
+      const url = window.location.href;
+      try{
+        await navigator.clipboard.writeText(url);
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+      }
+      shareBtn.textContent = '✓ Link copied';
+      shareBtn.classList.add('copied');
+      setTimeout(()=>{
+        shareBtn.textContent = "✎ Copy this page's link";
+        shareBtn.classList.remove('copied');
+      }, 2200);
+    });
+  }
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
